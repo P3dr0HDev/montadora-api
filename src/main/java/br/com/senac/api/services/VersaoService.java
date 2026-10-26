@@ -22,32 +22,32 @@ public class VersaoService {
     @Autowired
     private ModeloRepository modeloRepository;
 
-    public Modelo criar(VersaoReqDto modelo) {
-        Montadora montadora = montadoraService.listarPorId(modelo.getMontadoraId());
+    public Versao criar(VersaoReqDto versao) {
+        Montadora montadora = montadoraService.listarPorId(versao.getMontadoraId());
 
-        Modelo modeloPersist = this.modeloReqDtoToModelo(modelo);
-        modeloPersist.setMontadora(montadora);
+        Versao versaoPersist = this.versaoReqDtoToversao(versao);
+        versaoPersist.setModelo();
 
-        return modeloRepository.save(modeloPersist);
+        return versaoRepository.save(versaoPersist);
     }
 
-    public Modelo atualizar(Long id, VersaoReqDto modeloReqDto) {
-        if(modeloRepository.existsById(id)) {
-            Montadora montadora = montadoraService.listarPorId(modeloReqDto.getMontadoraId());
+    public Versao atualizar(Long id, VersaoReqDto versao) {
+        if(versaoRepository.existsById(id)) {
+            Montadora montadora = montadoraService.listarPorId(modelo.getMontadoraId());
 
-            Modelo modeloPersist = this.modeloReqDtoToModelo(modeloReqDto);
-            modeloPersist.setId(id);
-            modeloPersist.setMontadora(montadora);
+            Versao versaoPersist = this.versaoReqDtoToVersao(versao);
+            versaoPersist.setId(id);
+            versaoPersist.setMotor(montadora);
 
-            return modeloRepository.save(modeloPersist);
+            return versaoRepository.save(versaoPersist);
         }
 
         throw new RuntimeException("Modelo não encontrado!");
     }
 
     public void deletar(Long id) {
-        if(modeloRepository.existsById(id)) {
-            modeloRepository.deleteById(id);
+        if(versaoRepository.existsById(id)) {
+            versaoRepository.deleteById(id);
             return;
         }
 
@@ -58,12 +58,12 @@ public class VersaoService {
         return modeloRepository.findAll();
     }
 
-    private Modelo modeloReqDtoToModelo(VersaoReqDto entrada) {
+    private Versao versaoReqDtoToVersao(VersaoReqDto entrada) {
         Versao saida = new Versao();
         saida.setMotor(entrada.getMotor());
 
         Montadora montadoraRetorno = montadoraService.listarPorId(entrada.getMontadoraId());
-        saida.setMotor(Retorno);
+        saida.setMotor();
         return saida;
     }
 }
