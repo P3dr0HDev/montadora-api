@@ -2,9 +2,11 @@ package br.com.senac.api.dto;
 
 public class VersaoReqDto {
     private Long id;
-    private Long modeloId;
     private String motor;
+
     private Long montadoraId;
+
+    private Long modeloId;
 
     public Long getId() {
         return id;

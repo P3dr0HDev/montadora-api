@@ -24,20 +24,21 @@ public class VersaoService {
 
     public Versao criar(VersaoReqDto versao) {
         Montadora montadora = montadoraService.listarPorId(versao.getMontadoraId());
+        Modelo modelo = modeloRepository.findById(versao.getModeloId()).orElse(null);
 
-        Versao versaoPersist = this.versaoReqDtoToversao(versao);
-        versaoPersist.setModelo();
+        Versao versaoPersist = this.versaoReqDtoToVersao(versao);
+        versaoPersist.setModelo(modelo);
 
         return versaoRepository.save(versaoPersist);
     }
 
     public Versao atualizar(Long id, VersaoReqDto versao) {
         if(versaoRepository.existsById(id)) {
-            Montadora montadora = montadoraService.listarPorId(modelo.getMontadoraId());
-
+            Montadora montadora = montadoraService.listarPorId(versao.getMontadoraId());
+            Modelo modelo = modeloRepository.findById(versao.getModeloId()).orElse(null);
             Versao versaoPersist = this.versaoReqDtoToVersao(versao);
             versaoPersist.setId(id);
-            versaoPersist.setMotor(montadora);
+            versaoPersist.setMotor(versao.getMotor());
 
             return versaoRepository.save(versaoPersist);
         }
@@ -62,8 +63,8 @@ public class VersaoService {
         Versao saida = new Versao();
         saida.setMotor(entrada.getMotor());
 
-        Montadora montadoraRetorno = montadoraService.listarPorId(entrada.getMontadoraId());
-        saida.setMotor();
+        Modelo modeloRetorno = modeloRepository.findById(entrada.getModeloId()).orElse(null);
+        saida.setModelo(modeloRetorno);
         return saida;
     }
 }

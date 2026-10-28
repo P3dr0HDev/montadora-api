@@ -1,7 +1,7 @@
 package br.com.senac.api.controllers;
 
 import br.com.senac.api.dto.VersaoReqDto;
-import br.com.senac.api.entities.Versao;
+import br.com.senac.api.entities.Modelo;
 import br.com.senac.api.services.VersaoService;
 import br.com.senac.api.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class VersaoController{
     private VersaoService versaoService;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Versao>> listarTodos() {
+    public ResponseEntity<List<Modelo>> listarTodos() {
         return ResponseEntity.ok(versaoService.listarTodos());
 
     }
